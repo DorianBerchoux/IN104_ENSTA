@@ -9,8 +9,17 @@
 #include "functions.h"
 #include "choose_action.h"
 
+/*
+loop for each episode : boucle de genre 400 itérations = un épisode
+et on met plusieurs épisodes
+
+ou épisode qui s'arrète quand il arrive à la fonction
+et grande boucle s'arrète au bout de par exemple 4000 itérations.
+*/
 
 int main(){
+
+	int compteur =0;
 
 	maze_make(); //On met quel filename ?
 
