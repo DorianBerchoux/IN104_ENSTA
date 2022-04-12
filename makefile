@@ -1,13 +1,13 @@
 prog: dfs.o functions.o mazeEnv.o
 	gcc -o prog dfs.o functions.o mazeEnv.o
 
-dfs.o : dfs.c mazeEnv.h
+dfs.o : environnement/dfs.c environnement/mazeEnv.h
 	gcc -c -Wall -Werror -Wfatal-errors dfs.c
 
-functions.o : functions.c functions.h
+functions.o : environnement/functions.c environnement/functions.h
 	gcc -c -Wall -Werror -Wfatal-errors functions.c
 
-mazeEnv.o : mazeEnv.c mazeEnv.h
+mazeEnv.o : environnement/mazeEnv.c environnement/mazeEnv.h
 	gcc -c -Wall -Werror -Wfatal-errors mazeEnv.c
 
 clean :
