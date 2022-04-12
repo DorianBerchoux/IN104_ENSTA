@@ -31,7 +31,7 @@ int maxQ(){
 }
 
 
-action Q_eps_greedy(action a,double eps){
+action Q_eps_greedy(double eps){
 //on choisit l'action à l'aide de la méthode eps-greedy
 
 //on commence par choisir un nombre aléatoirement entre 0 et 1
