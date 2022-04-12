@@ -6,10 +6,8 @@
 #include"qlearning.h"
 #include "mazeEnv.h"
 #include "functions.h"
+#include "choose_action.h"
 
-#define alpha=0.5;
-#define eps=0.3;
-#define gamma=0.3;
 
 
 //On crée la matrice Q
@@ -43,18 +41,7 @@ double randdouble(){
 //Modifier recompense pour qu'il utilise (i actuel, j actuel et l'action a choisie) ou alors state_row, state_col et l'action
 //FAUT COMPRENDRE COMMENT MARCHE DFS !!!!
 
-/*float recompense(int i, int j){
-	if(maze[i][j]=='+'){
-		float r=-0.5;
-		return r;
-	}
 
-	else{
-
-		return dfs(i,j);
-	}
-
-*/
 // }
 // renvoie la recompense de la case ou on se rend
 
@@ -63,7 +50,13 @@ double randdouble(){
 //problème : faut d'abord actualiser la position ou on se rend pour utiliser dfs car dfs utilise state row et state col
 //ATTENTION : COMPRENDRE COMMENT MARCHE DFS
 
-/*
+//recompense : 1 s'il arrive au bout, pénalité de -0,5 s'il se tape un mur et 0 sinon.
+
+
+
+
+
+
 float recompense(action a){
 
 	float r;
@@ -73,33 +66,45 @@ float recompense(action a){
 			r=-0.5;
 		}
 
-		else{
-			r=dfs(state_row -1,j)
+		else if ((state_row-1==goal_row) && (state_col==goal_col)){
+			r=1;	
 		}
 	}
 
 	else if(a==down){
-		if(maze[state_row,+1][state_col] != '+'){
-			state_row = state_row+1;
+		if(maze[state_row+1][state_col] == '+'){
+			r=-0.5;
+		}
+
+		else if((state_row+1==goal_row) && (state_col==goal_col)){
+			r=1;
 		}
 	}
 
 	else if(a==right){
-		if(maze[state_row][state_col+1] != '+'){
-			state_col = state_col +1;
+		if(maze[state_row][state_col+1] == '+'){
+			r=-0.5;
+		}
+
+		else if((state_row==goal_row) && (state_col+1==goal_col)){
+			r=1;
 		}
 	}
 
 	else if(a==left){
-		if(maze[state_row][state_col-1] != '+'){
-			state_col = state_col -1;
+		if(maze[state_row][state_col-1] == '+'){
+			r=-0.5;
+		}
+
+		else if((state_row==goal_row) && (state_col-1==goal_col)){
+			r=1;
 		}
 	}
 
 
 }
 
-*/
+
 
 //calcule de l'indice de maxQ(s',a)
 int imaxQ (int i, int j, float** Q){
@@ -210,7 +215,7 @@ int main(){
 
 	while((state_row != goal_row) && (state_col!=goal_col)){
 
-		//On choisit une action a
+		action a = Q_eps_greedy(eps);
 
 		float r = recompense(a); //faut modifier la fonction récompense pour qu'elle prenne que a en paramètre !!
 
