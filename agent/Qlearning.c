@@ -4,7 +4,7 @@
 #include <math.h>
 #include "Qlearning.h"
 #include "mazeEnv.h"
-
+ 
 #define alpha=0.5;
 #define eps=0.3;
 #define gamma=0.3;
@@ -17,15 +17,15 @@ double** create_Q(){
         printf("Erreur creation de la matrice Q\n");
         return NULL;
     }
-    for (int i=0;i<rows*cols;++i){
-        Q[i]=malloc(sizeof(double)*4);
+    for (int row=0;i<rows*cols;++i){
+        Q[row]=malloc(sizeof(double)*4);
         //4, une colonne pour chaque action : haut,bas,gauche,droite
-        if (Q[i]==NULL){
+        if (Q[row]==NULL){
             printf("Erreur creation de la matrice Q\n");
             return NULL;
         }
-        for (int j=0;j<4;++j){
-            Q[i][j]=0.0;
+        for (int col=0;j<4;++j){
+            Q[row][col]=0.0;
         }
     }
     return Q;
@@ -39,17 +39,17 @@ double randdouble(){
 
 int maxQ(){
     //on calcule l'indice de l'état state dans notre matrice Q
-    int i=state_row*col+state_col;
-    double max=Q[i][0];
-    int jmax=0;
-    for (int j=1;j<4;++j){
-        if (Q[i][j]>res){
-            max=Q[i][j];
-            jmax=j;
+    int row=state_row*cols+state_col;
+    double max=Q[row][0];
+    int colmax=0;
+    for (int col=1;col<4;++j){
+        if (Q[row][col]>res){
+            max=Q[row][col];
+            colmax=j;
         }
     }
     //on retourne l'indice (colonne) du max
-    return jmax;
+    return colmax;
 }
 
 
@@ -67,8 +67,8 @@ action Q_eps_greedy(action a,double eps){
         //on a un nombre entre 0 et 2, soit 4 valeurs possibles.
         return move;
     }else{
-        int jmax=maxQ(s);
-        return jmax;
+        int colmax=maxQ(s);
+        return colmax;
         //on choisit l'action qui va maximiser notre récompense
     }
 }
