@@ -40,12 +40,9 @@ void add_crumbs(){
 }
 
 int main(){
-   int rows;
-   int cols;
-   maze_make("maze.txt",&rows,&cols);
+   maze_make("maze.txt");
    init_visited();
 
-   printf("%d, %d \n", rows, cols);
    printf("number of actions :  %d \n", number_actions); 
    maze_render();
    dfs(start_row,start_col);
