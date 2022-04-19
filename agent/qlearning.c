@@ -202,28 +202,34 @@ void actualisation_position(action a){
 }
 
 
-
+/*
 
 
 int main(){
 
-	maze_make(); //On met quel filename ?
+	maze_make("~/IN104/projet/environnement/CMaze-main/maze.txt"); //On met quel filename ?
 
 	maze_reset(); //on part de (start_row,start_col)
 
 	float** Q = makeQ();
+	int n=0;
 
-	while((state_row != goal_row) && (state_col!=goal_col)){
-
-		action a = Q_eps_greedy(eps);
-
-		float r = recompense(a); //faut modifier la fonction récompense pour qu'elle prenne que a en paramètre !!
+	for(int i=0; i<100; i++){
 
 
-		actualisationQ(alpha,gamma,Q,state_row,state_col,a);
+		while((state_row != goal_row) && (state_col!=goal_col)){
+
+			action a = Q_eps_greedy(eps);
+
+			float r = recompense(a); //faut modifier la fonction récompense pour qu'elle prenne que a en paramètre !!
+
+
+			actualisationQ(alpha,gamma,Q,state_row,state_col,a);
 		
 
-		actualisation_position(a); //actualise state_row/col 
+			actualisation_position(a); //actualise state_row/col
+		}
+		
 	}
 
 	//On part d'un état s initial (ie une position initiale)
@@ -236,7 +242,7 @@ int main(){
 
 	//on est sur un état s, on choisit une action, on actualise Q puis on actualise la position.
 
-
+*/
 
 
 
