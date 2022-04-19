@@ -6,6 +6,10 @@
 #include <time.h>
 #include <math.h>
 
+#include "qlearning.h"
+#include "mazeEnv.h"
+#include "functions.h"
+
 float** makeQ();
 
 

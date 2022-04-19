@@ -1,12 +1,6 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<time.h>
-#include<math.h>
+
 
 #include"qlearning.h"
-#include "mazeEnv.h"
-#include "functions.h"
-#include "choose_action.h"
 
 
 

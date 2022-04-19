@@ -2,8 +2,10 @@
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
-#include "Qlearning.h"
+#include "qlearning.h"
 #include "mazeEnv.h"
+#include "functions.h"
+
  
 #define alpha=0.5;
 #define eps=0.3;
