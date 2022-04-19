@@ -1,17 +1,17 @@
 main: functions.o mazeEnv.o qlearning.o choose_action.o
 	gcc -o main functions.o mazeEnv.o qlearning.o choose_action.o
 
-functions.o : environnement/CMaze-main/functions.c environnement/CMaze-main/functions.h
-	gcc -c -Wall -Werror -Wfatal-errors environnement/CMaze-main/functions.c
+functions.o : functions.c functions.h
+	gcc -c -Wall -Werror -Wfatal-errors functions.c
 
-mazeEnv.o : environnement/CMaze-main/mazeEnv.c environnement/CMaze-main/mazeEnv.h
-	gcc -c -Wall -Werror -Wfatal-errors environnement/CMaze-main/mazeEnv.c
+mazeEnv.o : mazeEnv.c mazeEnv.h
+	gcc -c -Wall -Werror -Wfatal-errors mazeEnv.c
 
-qlearning.o : agent/qlearning.c agent/qlearning.h
-	gcc -c -Wall -Werror -Wfatal-errors agent/qlearning.c agent/qlearning.h
+qlearning.o : qlearning.c qlearning.h
+	gcc -c -Wall -Werror -Wfatal-errors qlearning.c qlearning.h
 
-choose_action.o : agent/choose_action.c agent/choose_action.h
-	gcc -c -Wall -Werror -Wfatal-errors agent/choose_action.c agent/choose_action.h
+choose_action.o : choose_action.c choose_action.h
+	gcc -c -Wall -Werror -Wfatal-errors choose_action.c choose_action.h
 
 clean :
 	rm -f main functions.o mazeEnv.o qlearning.o choose_action.o
