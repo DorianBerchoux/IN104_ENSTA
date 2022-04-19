@@ -139,34 +139,36 @@ action Q_eps_greedy(action a,double eps){
     }
 }
 
-void actualisationQ (float alpha, float gamma, float** Q, int i, int j, action a){
+void actualisationQ (float alpha, float gamma, float** Q, int i, int j, action a,float r){
 
 	// i et j donnent les coordonnées de la case ou on est, ie donnent l'état actuel
 
 	// a modif pour utiliser state row er state col.
-	int s=i*cols +j;
+	
+
+	int s = state_row*cols + state_col;
 
 
 	if (a ==up){ //up
-		int r = recompense(i-1,j);
-		Q[s][0] = Q[s][0] + alpha*(r +gamma*Q[(i-1)*cols +j][imaxQ(i-1,j,Q)] -Q[s][0]);
+	
+		Q[s][0] = Q[s][0] + alpha*(r +gamma*Q[(state_row-1)*cols +state_col][imaxQ(state_row-1,state_col,Q)] -Q[s][0]);
 
 	}
 
 	if(a ==down){//down
-		int r=recompense(i+1,j);
-		Q[s][1] = Q[s][1]+ alpha*(r + gamma*Q[(i+1)*cols +j][imaxQ(i+1,j,Q)] -Q[s][1]);
+		
+		Q[s][1] = Q[s][1]+ alpha*(r + gamma*Q[(state_row+1)*cols +j][imaxQ(state_row+1,state_col,Q)] -Q[s][1]);
 	}
 
 	if(a ==left){//left
-		int r=recompense(i,j-1);
-		Q[s][2] = Q[s][2] +alpha*(r +gamma*Q[i*cols +j-1][imaxQ(i,j-1,Q)] -Q[s][2]);
+		
+		Q[s][2] = Q[s][2] +alpha*(r +gamma*Q[state_row*cols +state_col-1][imaxQ(state_row,state_col-1,Q)] -Q[s][2]);
 
 	}
 
 	if(a ==right){//right
-		int r=recompense(i,j+1);
-		Q[s][3] = Q[s][3]+alpha*(r+gamma*Q[i*cols +j+1][imaxQ(i,j+1,Q)]-Q[s][3]);
+		
+		Q[s][3] = Q[s][3]+alpha*(r+gamma*Q[state_row*cols +state_col+1][imaxQ(state_row,state_col+1,Q)]-Q[s][3]);
 
 	}
 
