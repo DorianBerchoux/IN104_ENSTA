@@ -14,4 +14,4 @@ choose_action.o : agent/choose_action.c agent/choose_action.h
 	gcc -c -Wall -Werror -Wfatal-errors agent/choose_action.c agent/choose_action.h
 
 clean :
-	rm -f prog  functions.o mazeEnv.o qlearning.o choose_action.o
+	rm -f main functions.o mazeEnv.o qlearning.o choose_action.o
