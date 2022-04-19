@@ -107,9 +107,9 @@ float recompense(action a){
 
 
 //calcule de l'indice de maxQ(s',a)
-int imaxQ (int i, int j, float** Q){
+int imaxQ (float** Q){
 	int indice=0;
-	int s=i*cols + j;
+	int s=state_row*cols + state_col;
 	for (int k=0;k<4;k++){
 		if (Q[s][k]>Q[s][indice]){
 			indice=k;
@@ -119,25 +119,7 @@ int imaxQ (int i, int j, float** Q){
 	return indice;
 }
 
-action Q_eps_greedy(action a,double eps){
-//on choisit l'action à l'aide de la méthode eps-greedy
 
-//on commence par choisir un nombre aléatoirement entre 0 et 1
-//si le nb est plus petit ou égal à eps, on choisit une action aléatoire
-    double p=randdouble();
-    //p est un réel aléatoire entre 0 et 1
-    if (p<=eps){
-        //alors on choisit une action aléatoirement
-        srand(time(NULL));
-        int move=rand()%4;
-        //on a un nombre entre 0 et 2, soit 4 valeurs possibles.
-        return move;
-    }else{
-        int jmax=maxQ(s);
-        return jmax;
-        //on choisit l'action qui va maximiser notre récompense
-    }
-}
 
 void actualisationQ (float alpha, float gamma, float** Q, int i, int j, action a,float r){
 
@@ -202,50 +184,5 @@ void actualisation_position(action a){
 		}
 	}
 }
-
-
-/*
-
-
-int main(){
-
-	maze_make("~/IN104/projet/environnement/CMaze-main/maze.txt"); //On met quel filename ?
-
-	maze_reset(); //on part de (start_row,start_col)
-
-	float** Q = makeQ();
-	int n=0;
-
-	for(int i=0; i<100; i++){
-
-
-		while((state_row != goal_row) && (state_col!=goal_col)){
-
-			action a = Q_eps_greedy(eps);
-
-			float r = recompense(a); //faut modifier la fonction récompense pour qu'elle prenne que a en paramètre !!
-
-
-			actualisationQ(alpha,gamma,Q,state_row,state_col,a);
-		
-
-			actualisation_position(a); //actualise state_row/col
-		}
-		
-	}
-
-	//On part d'un état s initial (ie une position initiale)
-	//On choisit une action au hasard
-	//On calcule la récompense de la case s' où on se rend
-	//On actualise la valeur de Q(s,a), associée à la case ou se trouve AVANT de faire l'action
-	//On actualise la positon s<-s' en effectuant le déplacement q'implique l'action 
-	//On continue tant que s != goal.
-
-
-	//on est sur un état s, on choisit une action, on actualise Q puis on actualise la position.
-
-*/
-
-
 
 

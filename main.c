@@ -36,7 +36,7 @@ maze_make("~/IN104/projet/environnement/CMaze-main/maze.txt"); //On met quel fil
 			float r = recompense(a); //faut modifier la fonction récompense pour qu'elle prenne que a en paramètre !!
 
 
-			actualisationQ(alpha,gamma,Q,state_row,state_col,a);
+			actualisationQ(alpha,gamma,Q,state_row,state_col,a, float r);
 		
 
 			actualisation_position(a); //actualise state_row/col

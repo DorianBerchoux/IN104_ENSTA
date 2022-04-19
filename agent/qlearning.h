@@ -10,13 +10,12 @@ float** makeQ();
 
 double randdouble();
 
-float recompense(int i, int j);
+float recompense(action a );
 
-int imaxQ(int i, int j, float** Q);
+int imaxQ(float** Q);
 
-action Q_eps_greedy(action a,double eps);
 
-void actualisationQ (float alpha, float gamma, float** Q, int i, int j, action a);
+void actualisationQ (float alpha, float gamma, float** Q, int i, int j, action a, float r);
 
 void actualisation_position(action a);
 
