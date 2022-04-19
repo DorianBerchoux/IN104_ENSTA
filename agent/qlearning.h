@@ -3,9 +3,10 @@
 
 
 
-#include "qlearning.h"
+
 #include "mazeEnv.h"
 #include "functions.h"
+#include "choose_action.h"
 
 float** makeQ();
 
