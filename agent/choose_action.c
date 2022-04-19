@@ -11,7 +11,7 @@ double randdouble(){
     return res;
 }
 
-int maxQ(){
+int maxQ(float** Q){
     //on calcule l'indice de l'état state dans notre matrice Q
     int row=state_row*cols+state_col;
     double max=Q[row][0];
@@ -27,7 +27,7 @@ int maxQ(){
 }
 
 
-action Q_eps_greedy(){
+action Q_eps_greedy(float** Q){
 //on choisit l'action à l'aide de la méthode eps-greedy
 
 //on commence par choisir un nombre aléatoirement entre 0 et 1
@@ -41,13 +41,13 @@ action Q_eps_greedy(){
         //on a un nombre entre 0 et 2, soit 4 valeurs possibles.
         return move;
     }else{
-        int colmax=maxQ();
+        int colmax=maxQ(Q);
         return colmax;
         //on choisit l'action qui va maximiser notre récompense
     }
 }
 
-action Q_blotzmann(){
+action Q_blotzmann(float** Q){
     double sum=0.0;
     //on va stocker ici la somme des exp(Q(s,a)) pour en déduire les 4 différentes probabilités 
     for (int i=0;i<4;++i){
