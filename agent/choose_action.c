@@ -4,6 +4,7 @@
 #include <math.h>
 #include "mazeEnv.h"
 #include "choose_action.h"
+#include "qlearning.h"
 
 double randdouble(){
     srand(time(NULL));
@@ -11,20 +12,8 @@ double randdouble(){
     return res;
 }
 
-int maxQ(float** Q){
-    //on calcule l'indice de l'état state dans notre matrice Q
-    int row=state_row*cols+state_col;
-    double max=Q[row][0];
-    int colmax=0;
-    for (int col=1;col<4;++j){
-        if (Q[row][col]>res){
-            max=Q[row][col];
-            colmax=j;
-        }
-    }
-    //on retourne l'indice (colonne) du max
-    return colmax;
-}
+
+
 
 
 action Q_eps_greedy(float** Q){
@@ -41,7 +30,7 @@ action Q_eps_greedy(float** Q){
         //on a un nombre entre 0 et 2, soit 4 valeurs possibles.
         return move;
     }else{
-        int colmax=maxQ(Q);
+        int colmax=imaxQ(Q);
         return colmax;
         //on choisit l'action qui va maximiser notre récompense
     }

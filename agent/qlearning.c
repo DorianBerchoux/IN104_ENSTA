@@ -32,10 +32,6 @@ float** makeQ (){
 		}	
 }
 
-double randdouble(){
-    srand(time(NULL));
-    double res=rand()/(RAND_MAX+1.0);
-    return res;
 
 
 //Modifier recompense pour qu'il utilise (i actuel, j actuel et l'action a choisie) ou alors state_row, state_col et l'action

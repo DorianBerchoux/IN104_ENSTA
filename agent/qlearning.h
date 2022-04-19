@@ -8,7 +8,7 @@
 
 float** makeQ();
 
-double randdouble();
+
 
 float recompense(action a );
 
