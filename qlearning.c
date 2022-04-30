@@ -22,9 +22,15 @@ float** makeQ (){
 			return NULL;
 		}
 
-		for(int j=0; i<4; i++){
-			Q[i][j]=0;
-		}	
+		else{
+
+			for(int j=0; i<4; i++){
+				Q[i][j]=0;
+			}	
+		}
+	}
+
+	return Q;
 }
 
 
@@ -50,69 +56,60 @@ float** makeQ (){
 
 float recompense(action a){
 
-	float r;
+	
 
 	if(a==up){
 		if (maze[state_row-1][state_col] == '+'){
-			r=-0.5;
+			return -0.5;
 		}
 
 		else if ((state_row-1==goal_row) && (state_col==goal_col)){
-			r=1;	
+			return 1;	
 		}
 	}
 
 	else if(a==down){
 		if(maze[state_row+1][state_col] == '+'){
-			r=-0.5;
+			return -0.5;
 		}
 
 		else if((state_row+1==goal_row) && (state_col==goal_col)){
-			r=1;
+			return 1;
 		}
 	}
 
 	else if(a==right){
 		if(maze[state_row][state_col+1] == '+'){
-			r=-0.5;
+			return -0.5;
 		}
 
 		else if((state_row==goal_row) && (state_col+1==goal_col)){
-			r=1;
+			return 1;
 		}
 	}
 
 	else if(a==left){
 		if(maze[state_row][state_col-1] == '+'){
-			r=-0.5;
+			return -0.5;
 		}
 
 		else if((state_row==goal_row) && (state_col-1==goal_col)){
-			r=1;
+			return 1;
 		}
 	}
 
+return 0;
 
 }
 
 
 
 //calcule de l'indice de maxQ(s',a)
-int imaxQ (float** Q){
-	int indice=0;
-	int s=state_row*cols + state_col;
-	for (int k=0;k<4;k++){
-		if (Q[s][k]>Q[s][indice]){
-			indice=k;
-		}
-	}
-
-	return indice;
-}
 
 
 
-void actualisationQ (float alpha, float gamma, float** Q, int i, int j, action a,float r){
+
+void actualisationQ (float gamma,float alpha, float** Q,  action a,float r){
 
 	// i et j donnent les coordonnées de la case ou on est, ie donnent l'état actuel
 
@@ -130,7 +127,7 @@ void actualisationQ (float alpha, float gamma, float** Q, int i, int j, action a
 
 	if(a ==down){//down
 		
-		Q[s][1] = Q[s][1]+ alpha*(r + gamma*Q[(state_row+1)*cols +j][imaxQ(state_row+1,state_col,Q)] -Q[s][1]);
+		Q[s][1] = Q[s][1]+ alpha*(r + gamma*Q[(state_row+1)*cols +start_col][imaxQ(state_row+1,state_col,Q)] -Q[s][1]);
 	}
 
 	if(a ==left){//left
@@ -158,7 +155,7 @@ void actualisation_position(action a){
 	}
 
 	else if(a==down){
-		if(maze[state_row,+1][state_col] != '+'){
+		if(maze[state_row+1][state_col] != '+'){
 			state_row = state_row+1;
 		}
 	}

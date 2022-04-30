@@ -1,13 +1,10 @@
-
-#include "qlearning.h"
+#include<stdio.h>
 #include "mazeEnv.h"
 #include "functions.h"
 
  
-#define alpha=0.5;
-#define eps=0.3;
-#define gamma=0.3;
 
+int imaxQ(int i, int j, float** Q);
 double randdouble();
-action Q_eps_greedy(float** Q);
+action Q_eps_greedy(float eps, float** Q);
 action Q_blotzmann(float** Q);

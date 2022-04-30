@@ -12,11 +12,22 @@ double randdouble(){
     return res;
 }
 
+int imaxQ (int i, int j, float** Q){
+	int indice=0;
+	int s=i*cols + j;
+	for (int k=0;k<4;k++){
+		if (Q[s][k]>Q[s][indice]){
+			indice=k;
+		}
+	}
+
+	return indice;
+}
 
 
 
 
-action Q_eps_greedy(float** Q){
+action Q_eps_greedy(float eps, float** Q){
 //on choisit l'action à l'aide de la méthode eps-greedy
 
 //on commence par choisir un nombre aléatoirement entre 0 et 1
@@ -30,7 +41,7 @@ action Q_eps_greedy(float** Q){
         //on a un nombre entre 0 et 2, soit 4 valeurs possibles.
         return move;
     }else{
-        int colmax=imaxQ(Q);
+        int colmax=imaxQ(state_row, state_col,Q);
         return colmax;
         //on choisit l'action qui va maximiser notre récompense
     }
@@ -38,9 +49,10 @@ action Q_eps_greedy(float** Q){
 
 action Q_blotzmann(float** Q){
     double sum=0.0;
+    int row=state_row*cols+state_col;//on calcule la ligne correspondante à notre état s de notre matrice Q
     //on va stocker ici la somme des exp(Q(s,a)) pour en déduire les 4 différentes probabilités 
     for (int i=0;i<4;++i){
-        int row=state_row*cols+state_col;//on calcule la ligne correspondante à notre état s de notre matrice Q
+        
         sum=sum+exp(Q[row][i]);
     }
     //on calcule les probas 

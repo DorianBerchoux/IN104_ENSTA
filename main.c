@@ -9,6 +9,9 @@
 #include "functions.h"
 #include "choose_action.h"
 
+
+
+
 /*
 loop for each episode : boucle de genre 400 itérations = un épisode
 et on met plusieurs épisodes
@@ -21,17 +24,21 @@ int main(){
 
 maze_make("~/IN104/projet/environnement/CMaze-main/maze.txt"); //On met quel filename ?
 
+	float eps = 0.3;
+	float alpha = 0.5;
+	float gamma = 0.9;
+	
 	maze_reset(); //on part de (start_row,start_col)
 
 	float** Q = makeQ();
-	int n=0;
+	
 
 	for(int i=0; i<100; i++){
 
 
 		while((state_row != goal_row) && (state_col!=goal_col)){
 
-			action a = Q_eps_greedy(eps);
+			action a = Q_eps_greedy(eps,Q);
 
 			float r = recompense(a); //faut modifier la fonction récompense pour qu'elle prenne que a en paramètre !!
 
