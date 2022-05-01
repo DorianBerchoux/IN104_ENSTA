@@ -22,7 +22,7 @@ et grande boucle s'arrète au bout de par exemple 4000 itérations.
 
 int main(){
 
-maze_make("~/IN104/projet/environnement/CMaze-main/maze.txt"); //On met quel filename ?
+	maze_make("maze.txt"); 
 
 	float eps = 0.3;
 	float alpha = 0.5;
@@ -30,23 +30,24 @@ maze_make("~/IN104/projet/environnement/CMaze-main/maze.txt"); //On met quel fil
 	
 	maze_reset(); //on part de (start_row,start_col)
 
+	//on créé notre matrice Q
 	float** Q = makeQ();
 	
-
+	//on réalise le parcours du labyrinthe 100 fois
 	for(int i=0; i<100; i++){
 
-
+		//on va parcourir le labyrinthe tant qu'on n'est pas arrivé au bout
 		while((state_row != goal_row) && (state_col!=goal_col)){
-
+			//D'abord on choisit une action à faire
 			action a = Q_eps_greedy(eps,Q);
+			 //Puis on calcule la récompense associée à cette action
+			float r = recompense(a);
 
-			float r = recompense(a); //faut modifier la fonction récompense pour qu'elle prenne que a en paramètre !!
-
-
-			actualisationQ(alpha,gamma,Q,state_row,state_col,a, float r);
+			//Après on actualise notre matrice Q
+			actualisationQ(gamma,alpha,Q,a,r);
 		
-
-			actualisation_position(a); //actualise state_row/col
+			//Pour finir on actualise notre position
+			actualisation_position(a); 
 		}
 		
 	}

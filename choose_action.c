@@ -56,7 +56,7 @@ action Q_blotzmann(float** Q){
         sum=sum+exp(Q[row][i]);
     }
     //on calcule les probas 
-    double* proba[4];
+    double proba[4];
     for (int i=0;i<4;++i){
         proba[i]=exp(Q[row][i]/sum);
     }
