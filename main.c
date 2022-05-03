@@ -24,7 +24,7 @@ int main(){
 	//on construit notre labyrinthe
 	maze_make("maze.txt"); 
 
-	float eps = 0.3;
+	float eps = 1;
 	float alpha = 0.5;
 	float gamma = 0.9;
 	
