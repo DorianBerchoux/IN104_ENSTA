@@ -8,14 +8,14 @@
 //On crée la matrice Q
 float** makeQ (){
 
-	float** Q = malloc(rows*cols*sizeof(float*));
+	float** Q = malloc((rows-2)*(cols-2)*sizeof(float*));
 	
 	if (Q==NULL){
 		printf("erreur allocation");
 		return NULL;
 	}
 
-	for(int i=0; i<rows*cols; i++){
+	for(int i=0; i<(rows-2)*(cols-2); i++){
 		Q[i]=malloc(4*sizeof(float));
 		if (Q[i]==NULL){
 			printf("erreur allocation");
@@ -120,13 +120,46 @@ void actualisationQ (float gamma,float alpha, float** Q,  action a,float r){
 	// a modif pour utiliser state row er state col.
 	
 
-	int s = state_row*cols + state_col;
+	int s = state_row*(cols-2) + state_col;
+	int new_col = state_col;
+	int new_row = state_row;
 
 
-	
-	Q[s][a] = Q[s][a] + alpha*(r +gamma*Q[(state_row-1)*cols +state_col][imaxQ(state_row-1,state_col,Q)] -Q[s][a]);
+	if(a==up){
+		if (maze[state_row-1][state_col] != '+'){
+			--new_row;
+		}
 
-	
+	}
+
+	else if(a==down){
+		if(maze[state_row+1][state_col] != '+'){
+			++new_row;
+		}
+
+	}
+
+	else if(a==right){
+		if(maze[state_row][state_col+1] != '+'){
+			++new_col;
+		}
+	}
+
+	else if(a==left){
+		if(maze[state_row][state_col-1] != '+'){
+			--new_col;
+		}
+
+		
+	}
+
+
+
+
+
+	Q[s][a] = Q[s][a] + alpha*(r +gamma*Q[(new_row)*(cols-2) +new_col][imaxQ(new_row,new_col,Q)] -Q[s][a]);
+
+
 }
 
 

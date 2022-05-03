@@ -13,7 +13,7 @@ double randdouble(){
 
 int imaxQ (int i, int j, float** Q){
 	int indice=0;
-	int s=i*cols + j;
+	int s=i*(cols-2) + j;
 	for (int k=0;k<4;k++){
 		if (Q[s][k]>Q[s][indice]){
 			indice=k;
@@ -45,7 +45,7 @@ action Q_eps_greedy(float eps, float** Q){
 
 action Q_blotzmann(float** Q){
     double sum=0.0;
-    int row=state_row*cols+state_col;//on calcule la ligne correspondante à notre état s de notre matrice Q
+    int row=state_row*(cols-2)+state_col;//on calcule la ligne correspondante à notre état s de notre matrice Q
     //on va stocker ici la somme des exp(Q(s,a)) pour en déduire les 4 différentes probabilités 
     for (int i=0;i<4;++i){
         
