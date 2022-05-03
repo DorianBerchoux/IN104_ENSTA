@@ -21,6 +21,7 @@ et grande boucle s'arrète au bout de par exemple 4000 itérations.
 */
 
 int main(){
+	srand(time(0));
 	//on construit notre labyrinthe
 	maze_make("maze.txt"); 
 
@@ -40,6 +41,7 @@ int main(){
 		while (((state_row != goal_row) || (state_col!=goal_col)) && count<1000){
 			//D'abord on choisit une action à faire
 			action a = Q_eps_greedy(eps,Q);
+			printf("action %d\n",a);
 			//Puis on calcule la récompense associée à cette action
 			float r = recompense(a);
 			//Après on actualise notre matrice Q

@@ -4,11 +4,10 @@
 #include <math.h>
 
 #include "choose_action.h"
-
+#include "mazeEnv.h"
 
 double randdouble(){
-    srand(time(NULL));
-    double res=rand()/(RAND_MAX+1.0);
+    double res=(double)(rand()%RAND_MAX)/RAND_MAX;
     return res;
 }
 
@@ -36,10 +35,7 @@ action Q_eps_greedy(float eps, float** Q){
     //p est un réel aléatoire entre 0 et 1
     if (p<=eps){
         //alors on choisit une action aléatoirement
-        srand(time(NULL));
-        int move=rand()%4;
-        //on a un nombre entre 0 et 2, soit 4 valeurs possibles.
-        return move;
+        return env_action_sample();
     }else{
         int colmax=imaxQ(state_row, state_col,Q);
         return colmax;
@@ -72,4 +68,3 @@ action Q_blotzmann(float** Q){
         return right;
     }
 }
-
