@@ -8,7 +8,7 @@
 #include "mazeEnv.h"
 #include "functions.h"
 #include "choose_action.h"
-
+#include "dfs.h"
 
 
 
@@ -21,36 +21,61 @@ et grande boucle s'arrète au bout de par exemple 4000 itérations.
 */
 
 int main(){
-
+	//on construit notre labyrinthe
 	maze_make("maze.txt"); 
 
 	float eps = 0.3;
 	float alpha = 0.5;
 	float gamma = 0.9;
 	
-	maze_reset(); //on part de (start_row,start_col)
-
+	
 	//on créé notre matrice Q
 	float** Q = makeQ();
-	
 	//on réalise le parcours du labyrinthe 100 fois
 	for(int i=0; i<100; i++){
-
+		maze_reset(); //on part de (start_row,start_col)
 		//on va parcourir le labyrinthe tant qu'on n'est pas arrivé au bout
-		while((state_row != goal_row) && (state_col!=goal_col)){
+		while ((state_row != goal_row) && (state_col!=goal_col)){
 			//D'abord on choisit une action à faire
 			action a = Q_eps_greedy(eps,Q);
-			 //Puis on calcule la récompense associée à cette action
+			//Puis on calcule la récompense associée à cette action
 			float r = recompense(a);
-
 			//Après on actualise notre matrice Q
 			actualisationQ(gamma,alpha,Q,a,r);
-		
 			//Pour finir on actualise notre position
 			actualisation_position(a); 
 		}
-		
 	}
+	//Après avoir fait 100 parcours de labyrinthe, on regarde le parcours que l'on fait après apprentissage.
+	//Si le parcours est le plus court chemin, alors notre apprentissage fonctionne.
+	//On pourra ensuite chercher à optimiser cet apprentissage ou à en élaborer d'autres.
+	maze_reset(); //on part de (start_row,start_col)
+	maze_render(); //on affiche le labyrinthe de départ
+	//on crée notre matrice visited
+	init_visited();
+	while ((state_row != goal_row) && (state_col!=goal_col)){
+		//D'abord on choisit une action à faire
+			action a = Q_eps_greedy(eps,Q);
+			//Puis on calcule la récompense associée à cette action
+			float r = recompense(a);
+			//Après on actualise notre matrice Q
+			actualisationQ(gamma,alpha,Q,a,r);
+			//Pour finir on actualise notre position
+			actualisation_position(a);
+			//On actualise notre matrice visited
+			visited[state_row][state_col]=crumb;
+	}
+	//On modifie notre labyrinthe pour voir notre chemin
+	add_crumbs();
+	printf("Le chemin qu'on a parcouru\n");
+	maze_render();
+	//Maintenant on affiche le chemin le plus court
+	printf("Le chemin le plus court\n");
+	maze_reset();
+	init_visited();
+	dfs(start_row,start_col);
+    add_crumbs();
+    maze_render();
 }
 	
 
