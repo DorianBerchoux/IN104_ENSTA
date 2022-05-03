@@ -35,7 +35,7 @@ int main(){
 	for(int i=0; i<100; i++){
 		maze_reset(); //on part de (start_row,start_col)
 		//on va parcourir le labyrinthe tant qu'on n'est pas arrivé au bout
-		while ((state_row != goal_row) && (state_col!=goal_col)){
+		while ((state_row != goal_row) || (state_col!=goal_col)){
 			//D'abord on choisit une action à faire
 			action a = Q_eps_greedy(eps,Q);
 			//Puis on calcule la récompense associée à cette action
@@ -44,6 +44,7 @@ int main(){
 			actualisationQ(gamma,alpha,Q,a,r);
 			//Pour finir on actualise notre position
 			actualisation_position(a); 
+			printf("current %d %d init %d %d goal %d %d \n", state_row, state_col, start_row, start_col, goal_row, goal_col);
 		}
 	}
 	//Après avoir fait 100 parcours de labyrinthe, on regarde le parcours que l'on fait après apprentissage.
@@ -53,7 +54,7 @@ int main(){
 	maze_render(); //on affiche le labyrinthe de départ
 	//on crée notre matrice visited
 	init_visited();
-	while ((state_row != goal_row) && (state_col!=goal_col)){
+	while ((state_row != goal_row) || (state_col!=goal_col)){
 		//D'abord on choisit une action à faire
 			action a = Q_eps_greedy(eps,Q);
 			//Puis on calcule la récompense associée à cette action

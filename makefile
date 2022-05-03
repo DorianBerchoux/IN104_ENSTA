@@ -1,5 +1,5 @@
 prog: main.o functions.o mazeEnv.o qlearning.o choose_action.o dfs.o
-	gcc -o prog main.o functions.o mazeEnv.o qlearning.o choose_action.o dfs.o -lm
+	gcc -o -g prog main.o functions.o mazeEnv.o qlearning.o choose_action.o dfs.o -lm
 
 main.o: main.c functions.h mazeEnv.h qlearning.h choose_action.h dfs.h
 	gcc -c -Wall -Werror -Wfatal-errors main.c functions.h mazeEnv.h qlearning.h choose_action.h dfs.h -lm

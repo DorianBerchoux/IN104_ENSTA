@@ -66,6 +66,7 @@ float recompense(action a){
 		else if ((state_row-1==goal_row) && (state_col==goal_col)){
 			return 1;	
 		}
+		else return -0.01;
 	}
 
 	else if(a==down){
@@ -76,6 +77,7 @@ float recompense(action a){
 		else if((state_row+1==goal_row) && (state_col==goal_col)){
 			return 1;
 		}
+		else return -0.01;
 	}
 
 	else if(a==right){
@@ -86,6 +88,7 @@ float recompense(action a){
 		else if((state_row==goal_row) && (state_col+1==goal_col)){
 			return 1;
 		}
+		else return -0.01;
 	}
 
 	else if(a==left){
@@ -96,6 +99,7 @@ float recompense(action a){
 		else if((state_row==goal_row) && (state_col-1==goal_col)){
 			return 1;
 		}
+		else return -0.01;
 	}
 
 return 0;
@@ -119,29 +123,10 @@ void actualisationQ (float gamma,float alpha, float** Q,  action a,float r){
 	int s = state_row*cols + state_col;
 
 
-	if (a ==up){ //up
 	
-		Q[s][0] = Q[s][0] + alpha*(r +gamma*Q[(state_row-1)*cols +state_col][imaxQ(state_row-1,state_col,Q)] -Q[s][0]);
+	Q[s][a] = Q[s][a] + alpha*(r +gamma*Q[(state_row-1)*cols +state_col][imaxQ(state_row-1,state_col,Q)] -Q[s][a]);
 
-	}
-
-	if(a ==down){//down
-		
-		Q[s][1] = Q[s][1]+ alpha*(r + gamma*Q[(state_row+1)*cols +start_col][imaxQ(state_row+1,state_col,Q)] -Q[s][1]);
-	}
-
-	if(a ==left){//left
-		
-		Q[s][2] = Q[s][2] +alpha*(r +gamma*Q[state_row*cols +state_col-1][imaxQ(state_row,state_col-1,Q)] -Q[s][2]);
-
-	}
-
-	if(a ==right){//right
-		
-		Q[s][3] = Q[s][3]+alpha*(r+gamma*Q[state_row*cols +state_col+1][imaxQ(state_row,state_col+1,Q)]-Q[s][3]);
-
-	}
-
+	
 }
 
 
