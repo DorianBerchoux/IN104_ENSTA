@@ -34,8 +34,10 @@ int main(){
 	//on réalise le parcours du labyrinthe 100 fois
 	for(int i=0; i<100; i++){
 		maze_reset(); //on part de (start_row,start_col)
-		//on va parcourir le labyrinthe tant qu'on n'est pas arrivé au bout
-		while ((state_row != goal_row) || (state_col!=goal_col)){
+		//on va parcourir le labyrinthe, avec un nombre d'actions limité à 1000
+		int count=0;
+		init_visited();
+		while (((state_row != goal_row) || (state_col!=goal_col)) && count<1000){
 			//D'abord on choisit une action à faire
 			action a = Q_eps_greedy(eps,Q);
 			//Puis on calcule la récompense associée à cette action
@@ -44,8 +46,11 @@ int main(){
 			actualisationQ(gamma,alpha,Q,a,r);
 			//Pour finir on actualise notre position
 			actualisation_position(a); 
-			printf("current %d %d init %d %d goal %d %d \n", state_row, state_col, start_row, start_col, goal_row, goal_col);
+			visited[state_row][state_col]=crumb;
+			++count;
 		}
+		add_crumbs();
+		maze_render();
 	}
 	//Après avoir fait 100 parcours de labyrinthe, on regarde le parcours que l'on fait après apprentissage.
 	//Si le parcours est le plus court chemin, alors notre apprentissage fonctionne.
@@ -54,7 +59,7 @@ int main(){
 	maze_render(); //on affiche le labyrinthe de départ
 	//on crée notre matrice visited
 	init_visited();
-	while ((state_row != goal_row) || (state_col!=goal_col)){
+	while ((state_row != goal_row) || (state_col!=goal_col) ){
 		//D'abord on choisit une action à faire
 			action a = Q_eps_greedy(eps,Q);
 			//Puis on calcule la récompense associée à cette action
