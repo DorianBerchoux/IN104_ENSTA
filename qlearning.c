@@ -60,46 +60,46 @@ float recompense(action a){
 
 	if(a==up){
 		if (maze[state_row-1][state_col] == '+'){
-			return -1;
+			return -0.5;
 		}
 
 		else if ((state_row-1==goal_row) && (state_col==goal_col)){
-			return 10;	
+			return 1;	
 		}
-		else return -0.5;
+		else return -0.01;
 	}
 
 	else if(a==down){
 		if(maze[state_row+1][state_col] == '+'){
-			return -1;
+			return -0.5;
 		}
 
 		else if((state_row+1==goal_row) && (state_col==goal_col)){
-			return 10;
+			return 1;
 		}
-		else return -0.5;
+		else return -0.01;
 	}
 
 	else if(a==right){
 		if(maze[state_row][state_col+1] == '+'){
-			return -1;
+			return -0.5;
 		}
 
 		else if((state_row==goal_row) && (state_col+1==goal_col)){
-			return 10;
+			return 1;
 		}
-		else return -0.5;
+		else return -0.01;
 	}
 
 	else if(a==left){
 		if(maze[state_row][state_col-1] == '+'){
-			return -1;
+			return -0.5;
 		}
 
 		else if((state_row==goal_row) && (state_col-1==goal_col)){
-			return 10;
+			return 1;
 		}
-		else return -0.5;
+		else return -0.01;
 	}
 
 return 0;

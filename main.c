@@ -55,6 +55,8 @@ int main(){
 		add_crumbs();
 		maze_render();
 	}
+
+	/*
 	//Après avoir fait 100 parcours de labyrinthe, on regarde le parcours que l'on fait après apprentissage.
 	//Si le parcours est le plus court chemin, alors notre apprentissage fonctionne.
 	//On pourra ensuite chercher à optimiser cet apprentissage ou à en élaborer d'autres.
@@ -94,6 +96,8 @@ int main(){
 	dfs(start_row,start_col);
     add_crumbs();
     maze_render();
+
+	*/
 }
 	
 
