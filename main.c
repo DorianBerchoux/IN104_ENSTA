@@ -21,24 +21,25 @@ et grande boucle s'arrète au bout de par exemple 4000 itérations.
 */
 
 int main(){
-	srand(time(0));
+	srand(time(0)); 
 	//on construit notre labyrinthe
 	maze_make("maze.txt"); 
 
-	float eps = 1;
+	float eps = 0.4;
 	float alpha = 0.5;
-	float gamma = 0.9;
+	float gamma = 1;
 	
-	
+	int count = 0;
 	//on créé notre matrice Q
 	float** Q = makeQ();
 	//on réalise le parcours du labyrinthe 100 fois
 	for(int i=0; i<100; i++){
+		maze_make("maze.txt");
 		maze_reset(); //on part de (start_row,start_col)
 		//on va parcourir le labyrinthe, avec un nombre d'actions limité à 1000
-		int count=0;
+		count =0;
 		init_visited();
-		while (((state_row != goal_row) || (state_col!=goal_col)) && count<1000){
+		while (((state_row != goal_row) || (state_col!=goal_col))){
 			//D'abord on choisit une action à faire
 			action a = Q_eps_greedy(eps,Q);
 			printf("action %d\n",a);
@@ -57,10 +58,15 @@ int main(){
 	//Après avoir fait 100 parcours de labyrinthe, on regarde le parcours que l'on fait après apprentissage.
 	//Si le parcours est le plus court chemin, alors notre apprentissage fonctionne.
 	//On pourra ensuite chercher à optimiser cet apprentissage ou à en élaborer d'autres.
-	maze_reset(); //on part de (start_row,start_col)
-	maze_render(); //on affiche le labyrinthe de départ
+	 //on part de (start_row,start_col)
+	maze_make("maze.txt");
+	maze_reset();
 	//on crée notre matrice visited
 	init_visited();
+
+	//On l'enlève l'aléatoire pour le parcours : il termine en 45 itérations(ie plus court chemin).
+	eps=0; 
+	count =0;
 	while ((state_row != goal_row) || (state_col!=goal_col) ){
 		//D'abord on choisit une action à faire
 			action a = Q_eps_greedy(eps,Q);
@@ -72,13 +78,16 @@ int main(){
 			actualisation_position(a);
 			//On actualise notre matrice visited
 			visited[state_row][state_col]=crumb;
+			++count;
 	}
 	//On modifie notre labyrinthe pour voir notre chemin
 	add_crumbs();
 	printf("Le chemin qu'on a parcouru\n");
 	maze_render();
+	printf("nb d'itérations final %d\n", count);
 	//Maintenant on affiche le chemin le plus court
 	printf("Le chemin le plus court\n");
+	maze_make("maze.txt");
 	maze_reset();
 	init_visited();
 	dfs(start_row,start_col);
