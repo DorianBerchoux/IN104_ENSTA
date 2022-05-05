@@ -57,13 +57,13 @@ action Q_boltzmann(float** Q){
     }
     //on choisit un nombre entre 0 et 1 : s'il est entre 0 et proba[0], on choisit l'action 0 ; s'il est entre proba[0] et proba[1], on fait l'action 1 ...
     double p=randdouble();
-    if (p<proba[0]){
+    if (0<=p<proba[0]){
         return up;
-    }else if (p<proba[1]+proba[0]){
+    }else if (proba[0]<=p<proba[1]+proba[0]){
         return down;
-    }else if (p<proba[2]+proba[1]+proba[0]){
+    }else if (proba[1]+proba[0]<=p<proba[2]+proba[1]+proba[0]){
         return left;
-    }else{ 
+    }else if(proba[2]+proba[1]+proba[0]<=p<=1){
         return right;
     }
 }
