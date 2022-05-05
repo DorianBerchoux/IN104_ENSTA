@@ -42,7 +42,7 @@ action Q_eps_greedy(float eps, float** Q){
     }
 }
 
-action Q_blotzmann(float** Q){
+action Q_boltzmann(float** Q){
     double sum=0.0;
     int row=state_row*(cols)+state_col;//on calcule la ligne correspondante à notre état s de notre matrice Q
     //on va stocker ici la somme des exp(Q(s,a)) pour en déduire les 4 différentes probabilités 
@@ -53,7 +53,7 @@ action Q_blotzmann(float** Q){
     //on calcule les probas 
     double proba[4];
     for (int i=0;i<4;++i){
-        proba[i]=exp(Q[row][i]/sum);
+        proba[i]=exp(Q[row][i])/sum;
     }
     //on choisit un nombre entre 0 et 1 : s'il est entre 0 et proba[0], on choisit l'action 0 ; s'il est entre proba[0] et proba[1], on fait l'action 1 ...
     double p=randdouble();

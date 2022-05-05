@@ -7,4 +7,4 @@
 int imaxQ(int i, int j, float** Q);
 double randdouble();
 action Q_eps_greedy(float eps, float** Q);
-action Q_blotzmann(float** Q);
+action Q_boltzmann(float** Q);

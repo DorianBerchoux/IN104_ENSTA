@@ -25,7 +25,7 @@ int main(){
 	//on construit notre labyrinthe
 	maze_make("maze.txt"); 
 
-	float eps = 0.4;
+	//float eps = 0.4;
 	float alpha = 0.5;
 	float gamma = 1;
 	
@@ -41,7 +41,7 @@ int main(){
 		init_visited();
 		while (((state_row != goal_row) || (state_col!=goal_col))){
 			//D'abord on choisit une action à faire
-			action a = Q_eps_greedy(eps,Q);
+			action a = Q_boltzmann(Q);
 			printf("action %d\n",a);
 			//Puis on calcule la récompense associée à cette action
 			float r = recompense(a);
@@ -65,11 +65,11 @@ int main(){
 	init_visited();
 
 	//On l'enlève l'aléatoire pour le parcours : il termine en 45 itérations(ie plus court chemin).
-	eps=0; 
+	//eps=0; 
 	count =0;
 	while ((state_row != goal_row) || (state_col!=goal_col) ){
 		//D'abord on choisit une action à faire
-			action a = Q_eps_greedy(eps,Q);
+			action a = Q_boltzmann(Q);
 			//Puis on calcule la récompense associée à cette action
 			float r = recompense(a);
 			//Après on actualise notre matrice Q
