@@ -79,6 +79,7 @@ int main(){
 			//On actualise notre matrice visited
 			visited[state_row][state_col]=crumb;
 			++count;
+			printf("count pour le dernier parcours %d\n",count);
 	}
 	//On modifie notre labyrinthe pour voir notre chemin
 	add_crumbs();
