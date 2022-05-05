@@ -39,7 +39,7 @@ int main(){
 		//on va parcourir le labyrinthe, avec un nombre d'actions limité à 1000
 		count =0;
 		init_visited();
-		while (((state_row != goal_row) || (state_col!=goal_col)) && (count<1000)){
+		while (((state_row != goal_row) || (state_col!=goal_col)) && (count<10000)){
 			//D'abord on choisit une action à faire
 			action a = Q_boltzmann(Q);
 			printf("action %d\n",a);
