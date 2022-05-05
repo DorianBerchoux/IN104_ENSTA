@@ -19,7 +19,6 @@ int imaxQ (int i, int j, float** Q){
 			indice=k;
 		}
 	}
-
 	return indice;
 }
 
