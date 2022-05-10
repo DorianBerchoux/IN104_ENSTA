@@ -6,6 +6,16 @@
 #include "choose_action.h"
 #include "mazeEnv.h"
 
+struct maillon{
+    struct maillon* suivant;
+    int indice;
+};
+
+struct liste_chainee{
+    struct maillon* debut;
+    int longueur;
+};
+
 float randdouble(){
     float res=(float)(rand()%RAND_MAX)/RAND_MAX;
     return res;
@@ -20,6 +30,30 @@ int imaxQ (int i, int j, float** Q){
 		}
 	}
 	return indice;
+}
+
+int imaxQ (int i,int j, float** Q){
+    //on initialise notre liste chaînée
+    struct maillon last={NULL, 3};
+    struct maillon case3={&last,2};
+    struct maillon case2={&case3,1};
+    struct maillon first={&case2,0};
+    struct liste_chainee={&first,4};
+
+    float p = randdouble();
+    if (p<0.25){
+        int indice=0;
+    }else if (p<0.5){
+        int indice = 1;
+    }else if (p<0.75){
+        int indice = 2;
+    }else int indice=3;
+    
+    //on supprime la "indice"-ième case 
+    for (int i=0;i<=indice;++i){
+        
+    }
+
 }
 
 

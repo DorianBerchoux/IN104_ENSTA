@@ -66,7 +66,7 @@ float recompense(action a){
 		else if ((state_row-1==goal_row) && (state_col==goal_col)){
 			return 1;	
 		}
-		else return -0.01;
+		else return -0.1;
 	}
 
 	else if(a==down){
@@ -77,7 +77,7 @@ float recompense(action a){
 		else if((state_row+1==goal_row) && (state_col==goal_col)){
 			return 1;
 		}
-		else return -0.01;
+		else return -0.1;
 	}
 
 	else if(a==right){
@@ -88,7 +88,7 @@ float recompense(action a){
 		else if((state_row==goal_row) && (state_col+1==goal_col)){
 			return 1;
 		}
-		else return -0.01;
+		else return -0.1;
 	}
 
 	else if(a==left){
@@ -99,7 +99,7 @@ float recompense(action a){
 		else if((state_row==goal_row) && (state_col-1==goal_col)){
 			return 1;
 		}
-		else return -0.01;
+		else return -0.1;
 	}
 
 return 0;
