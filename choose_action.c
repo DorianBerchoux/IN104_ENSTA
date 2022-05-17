@@ -6,15 +6,8 @@
 #include "choose_action.h"
 #include "mazeEnv.h"
 
-struct maillon{
-    struct maillon* suivant;
-    int indice;
-};
 
-struct liste_chainee{
-    struct maillon* debut;
-    int longueur;
-};
+
 
 float randdouble(){
     float res=(float)(rand()%RAND_MAX)/RAND_MAX;
@@ -22,6 +15,9 @@ float randdouble(){
 }
 
 int imaxQ (int i, int j, float** Q){
+
+   
+
 	int indice=0;
 	int s=i*(cols) + j;
 	for (int k=0;k<4;k++){
@@ -30,36 +26,33 @@ int imaxQ (int i, int j, float** Q){
 		}
 	}
 	return indice;
-}
 
-int imaxQ (int i,int j, float** Q){
-    //on initialise notre liste chaînée
-    struct maillon last={NULL, 3};
-    struct maillon case3={&last,2};
-    struct maillon case2={&case3,1};
-    struct maillon first={&case2,0};
-    struct liste_chainee={&first,4};
 
-    float p = randdouble();
-    if (p<0.25){
-        int indice=0;
-    }else if (p<0.5){
-        int indice = 1;
-    }else if (p<0.75){
-        int indice = 2;
-    }else int indice=3;
     
-    //on supprime la "indice"-ième case 
-    for (int i=0;i<=indice;++i){
-        
-    }
-
 }
 
 
+int imaxQsarsa (int i, int j, float** Q, int** T){
+
+   
+
+	int indice=0;
+	int s=i*(cols) + j;
+    int res = rand()%24;
+	for (int k=0;k<4;k++){
+		if (Q[s][T[res][k]]>Q[s][T[res][indice]]){
+			indice=k;
+		}
+	}
+	return indice;
 
 
-action Q_eps_greedy(float eps, float** Q){
+    
+}
+
+//ATTENTION, EPS GREEDY A ICI ETE MODIT POUR SARSA EN RAJOUTANT LA MARTICE T DANS LES VARIABLES ET EN UTILISANT imaxqsarsa. FAUDRA CHANGER ÇA SI ON UTILISE QLEARNING.
+ 
+action Q_eps_greedy(float eps, float** Q,int** T){
 //on choisit l'action à l'aide de la méthode eps-greedy
 
 //on commence par choisir un nombre aléatoirement entre 0 et 1
@@ -70,7 +63,7 @@ action Q_eps_greedy(float eps, float** Q){
         //alors on choisit une action aléatoirement
         return env_action_sample();
     }else{
-        int colmax=imaxQ(state_row, state_col,Q);
+        int colmax=imaxQsarsa(state_row, state_col,Q,T);
         return colmax;
         //on choisit l'action qui va maximiser notre récompense
     }
