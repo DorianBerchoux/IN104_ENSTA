@@ -8,7 +8,7 @@
 
 
 
-
+// Fonction qui permet de générer un nombre aléatoire entre 0 et 1.
 float randdouble(){
     float res=(float)(rand()%RAND_MAX)/RAND_MAX;
     return res;
@@ -31,8 +31,10 @@ int imaxQ (int i, int j, float** Q){
     
 }
 
+//2eme version de la fonction imaxQ qui prend en argument la matrice T qui permet de parcourir les cases de la matrice Q dans un ordre aléatoire 
+//lors de la recherche du max, afin d'éviter de choisir toujours le premier maximum lorsque des cases ont la même valeur.
 
-int imaxQsarsa (int i, int j, float** Q, int** T){
+int imaxQ_sarsa (int i, int j, float** Q, int** T){
 
    
 
@@ -50,9 +52,9 @@ int imaxQsarsa (int i, int j, float** Q, int** T){
     
 }
 
-//ATTENTION, EPS GREEDY A ICI ETE MODIT POUR SARSA EN RAJOUTANT LA MARTICE T DANS LES VARIABLES ET EN UTILISANT imaxqsarsa. FAUDRA CHANGER ÇA SI ON UTILISE QLEARNING.
+
  
-action Q_eps_greedy(float eps, float** Q,int** T){
+action Q_eps_greedy(float eps, float** Q){
 //on choisit l'action à l'aide de la méthode eps-greedy
 
 //on commence par choisir un nombre aléatoirement entre 0 et 1
@@ -63,7 +65,26 @@ action Q_eps_greedy(float eps, float** Q,int** T){
         //alors on choisit une action aléatoirement
         return env_action_sample();
     }else{
-        int colmax=imaxQsarsa(state_row, state_col,Q,T);
+        int colmax=imaxQ(state_row, state_col,Q);
+        return colmax;
+        //on choisit l'action qui va maximiser notre récompense
+    }
+}
+
+//2eme version de la fonction eps_greedy qui sert pour Sarsa, qui prend en argument la matrice T pour pouvoir utiliser la fonction imaxQ_sarsa.
+
+action Q_eps_greedy_sarsa(float eps, float** Q,int** T){
+//on choisit l'action à l'aide de la méthode eps-greedy
+
+//on commence par choisir un nombre aléatoirement entre 0 et 1
+//si le nb est plus petit ou égal à eps, on choisit une action aléatoire
+    float p=randdouble();
+    //p est un réel aléatoire entre 0 et 1
+    if (p<=eps){
+        //alors on choisit une action aléatoirement
+        return env_action_sample();
+    }else{
+        int colmax=imaxQ_sarsa(state_row, state_col,Q,T);
         return colmax;
         //on choisit l'action qui va maximiser notre récompense
     }

@@ -12,6 +12,9 @@
 
 int main (){
 
+//On crée la matrice T qui contient les 24 manières possibles de parcourir une liste de 4 cases. Elle permettra lorsqu'on appelle Q_eps_greedy de parcourir 
+//les cases de la matrice Q dans un ordre aléatoire lors de la recherche du max.
+
 	int** T = malloc(24*sizeof(int*));
 for(int i=0; i<24; i++){
     T[i]=malloc(sizeof(int)*4);
@@ -147,7 +150,7 @@ T[23][3]=1;
 	float** Q= makeQ();
 
 	//On loop sur les épisodes (=parcours du laby)
-	for(int i=0;i<600;i++){
+	for(int i=0;i<500;i++){
 		maze_make("maze.txt");
 		maze_reset();
 		init_visited();
@@ -155,14 +158,14 @@ T[23][3]=1;
 		int count =0;
 
 		//On choisit une action a
-		action a = Q_eps_greedy(eps,Q,T);
+		action a = Q_eps_greedy_sarsa(eps,Q,T);
 
 		printf("départ %d %d actuelle %d %d goal %d %d", state_row, state_col, state_row, state_col, goal_row, goal_col);
 		
 			
 		
 
-		while (((state_row != goal_row) || (state_col!=goal_col)) && (count <500)){
+		while (((state_row != goal_row) || (state_col!=goal_col)) && (count <10000)){
 
 			
 			//On calcule la récompense r associée a cette action
@@ -176,7 +179,7 @@ T[23][3]=1;
 			actualisation_position(a);
 
 			//On choisit une action a' grâce à la position s'
-			action a2 = Q_eps_greedy(eps,Q,T);
+			action a2 = Q_eps_greedy_sarsa(eps,Q,T);
 			printf("départ %d %d actuelle %d %d goal %d %d \n", start_row, start_col, state_row, state_col, goal_row, goal_col);
 
 			//On actualise Q
@@ -207,14 +210,14 @@ T[23][3]=1;
 	//on crée notre matrice visited
 	init_visited();
 
-	//On l'enlève l'aléatoire pour le parcours : il termine en 45 itérations(ie plus court chemin).
-	eps=0.1; 
+	//On l'enlève l'aléatoire pour le parcours : 
+	eps=0;
 	int count =0;
 
 
 
 		//On choisit une action a
-		action a = Q_eps_greedy(eps,Q,T);
+		action a = Q_eps_greedy_sarsa(eps,Q,T);
 
 		printf("départ %d %d actuelle %d %d goal %d %d", state_row, state_col, state_row, state_col, goal_row, goal_col);
 		
@@ -235,7 +238,7 @@ T[23][3]=1;
 			actualisation_position(a);
 
 			//On choisit une action a' grâce à la position s'
-			action a2 = Q_eps_greedy(eps,Q,T);
+			action a2 = Q_eps_greedy_sarsa(eps,Q,T);
 			
 			//On actualise Q
 			int s = old_row*cols + old_col;

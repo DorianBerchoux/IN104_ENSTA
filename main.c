@@ -12,6 +12,8 @@
 
 
 
+//Rappel : eps = 0.4 , alpha =0.9, gamma=0.9
+
 /*
 loop for each episode : boucle de genre 400 itérations = un épisode
 et on met plusieurs épisodes
@@ -25,9 +27,9 @@ int main(){
 	//on construit notre labyrinthe
 	maze_make("maze.txt"); 
 
-	//float eps = 0.4;
-	float alpha = 0.5;
-	float gamma = 1;
+	float eps = 0.4;
+	float alpha = 0.9;
+	float gamma = 0.9;
 	
 	int count = 0;
 	//on créé notre matrice Q
@@ -41,7 +43,7 @@ int main(){
 		init_visited();
 		while (((state_row != goal_row) || (state_col!=goal_col)) && (count<10000)){
 			//D'abord on choisit une action à faire
-			action a = Q_boltzmann(Q);
+			action a = Q_eps_greedy(eps,Q);
 			printf("action %d\n",a);
 			//Puis on calcule la récompense associée à cette action
 			float r = recompense(a);
@@ -56,7 +58,7 @@ int main(){
 		maze_render();
 	}
 
-	/*
+	
 	//Après avoir fait 100 parcours de labyrinthe, on regarde le parcours que l'on fait après apprentissage.
 	//Si le parcours est le plus court chemin, alors notre apprentissage fonctionne.
 	//On pourra ensuite chercher à optimiser cet apprentissage ou à en élaborer d'autres.
@@ -67,11 +69,11 @@ int main(){
 	init_visited();
 
 	//On l'enlève l'aléatoire pour le parcours : il termine en 45 itérations(ie plus court chemin).
-	//eps=0; 
+	eps=0; 
 	count =0;
 	while ((state_row != goal_row) || (state_col!=goal_col) ){
 		//D'abord on choisit une action à faire
-			action a = Q_boltzmann(Q);
+			action a = Q_eps_greedy(eps,Q);
 			//Puis on calcule la récompense associée à cette action
 			float r = recompense(a);
 			//Après on actualise notre matrice Q
@@ -97,7 +99,7 @@ int main(){
     add_crumbs();
     maze_render();
 
-	*/
+	
 }
 	
 
