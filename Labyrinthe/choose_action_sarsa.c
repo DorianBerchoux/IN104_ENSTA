@@ -12,6 +12,7 @@
 
 int imaxQ_sarsa (int i, int j, float** Q){
 
+	srand(time(0));
     int s=i*(cols) + j;
     int T[4];
 	for (int i=0; i<4;i++){

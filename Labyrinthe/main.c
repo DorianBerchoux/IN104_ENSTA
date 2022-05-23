@@ -131,7 +131,7 @@ int main(){
 			
 
 			//On loop sur les épisodes (=parcours du laby)
-			for(int i=0;i<100;i++){
+			for(int i=0;i<300;i++){
 				maze_make("maze.txt");
 				maze_reset();
 				init_visited();
