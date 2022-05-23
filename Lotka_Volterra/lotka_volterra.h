@@ -18,6 +18,11 @@ action env_action_sample();
 float state_prey;
 float state_predator;
 float Tk;
+float alpha;
+float beta;
+float delta;
+float gamma;
+
 
 float prey0;
 float predator0;
