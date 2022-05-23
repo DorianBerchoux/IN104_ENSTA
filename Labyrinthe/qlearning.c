@@ -33,6 +33,8 @@ float** makeQ (){
 	return Q;
 }
 
+
+
 void freeQ (float** Q){
 	for(int i=0;i<(rows*cols);i++){
 		free(Q[i]);
@@ -167,54 +169,7 @@ void actualisationQ (float gamma,float alpha, float** Q,  action a,float r){
 
 }
 
-void double_actualisationQ(float gamma,float alpha, float** Q1,float** Q2 , action a,float r){
 
-	int s = state_row*(cols) + state_col;
-	int new_col = state_col;
-	int new_row = state_row;
-
-
-	if(a==up){
-		if (maze[state_row-1][state_col] != '+'){
-			--new_row;
-		}
-
-	}
-
-	else if(a==down){
-		if(maze[state_row+1][state_col] != '+'){
-			++new_row;
-		}
-
-	}
-
-	else if(a==right){
-		if(maze[state_row][state_col+1] != '+'){
-			++new_col;
-		}
-	}
-
-	else if(a==left){
-		if(maze[state_row][state_col-1] != '+'){
-			--new_col;
-		}
-
-		
-	}
-
-float p=randdouble();
-	if (p<=0.5){
-		
-		Q1[s][a] = Q1[s][a] + alpha*(r +gamma*Q2[(new_row)*(cols) +new_col][imaxQ(new_row,new_col,Q1)] -Q1[s][a]);
-	}
-
-	else{
-		Q2[s][a] = Q2[s][a] + alpha*(r +gamma*Q1[(new_row)*(cols) +new_col][imaxQ(new_row,new_col,Q2)] -Q2[s][a]);
-	}
-
-
-
-}
 
 
 
