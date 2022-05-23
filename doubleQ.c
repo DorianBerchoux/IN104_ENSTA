@@ -4,6 +4,7 @@
 #include<math.h>
 
 #include"qlearning.h"
+#include"doubleQlearning.h"
 #include "mazeEnv.h"
 #include "functions.h"
 #include "choose_action.h"
@@ -38,6 +39,10 @@ int main(){
     doublemakeQ();
 
     printf("ok2\n");
+
+	doubleQ_init();
+
+	printf("ok3\n");
 
 	//on réalise le parcours du labyrinthe 100 fois
 	for(int i=0; i<100; i++){
@@ -110,12 +115,4 @@ int main(){
 }
 	
 
-	//On part d'un état s initial (ie une position initiale)
-	//On choisit une action au hasard
-	//On calcule la récompense de la case s' où on se rend
-	//On actualise la valeur de Q(s,a), associée à la case ou se trouve AVANT de faire l'action
-	//On actualise la positon s<-s' en effectuant le déplacement q'implique l'action 
-	//On continue tant que s != goal.
-
-
-	//on est sur un état s, on choisit une action, on actualise Q puis on actualise la position.
+	
