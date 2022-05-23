@@ -7,15 +7,16 @@ float beta=0.2; //taux mortalité proies
 float delta=0.3; //taux reproduction prédateurs
 float gamma=0.2; //taux mortalité prédateurs
 //Condition initiale : X0, proies et Y0, prédateurs
-float X0=1000;
-float Y0=50;
+float prey0=1000;
+float predator0=50;
 
 //le temps de l'expérience t varie entre 0 et 365 (en jours)
 //on prendra un pas de temps dt d'une demie-journée.
 float dt=0.5;
-float h=dt/365;
+int N=365;
+float h=dt/N;
 
-float** make_Z(float X0,float Y0){
+float** make_Z(float prey0,float predator0){
     //On crée notre matrice Z contenant les population des espèces, première colonne les proies et deuxième colonne les prédateurs
     float** Z = malloc(sizeof(float*)*365/dt);
     if (Z!=NULL){
@@ -23,8 +24,8 @@ float** make_Z(float X0,float Y0){
             Z[i]=malloc(sizeof(float)*2);
             if (Z[i]!=NULL){
                 if (i==0){
-                    Z[i][0]=Z0[0];
-                    Z[i][1]=Z0[1];
+                    Z[i][0]=prey0;
+                    Z[i][1]=predator0;
                 }else{
                     Z[i][0]=0.0;
                     Z[i][1]=0.0;
@@ -56,7 +57,9 @@ void RK2(int Tk,float** Z){
 }
 
 
-
+action env_action_sample(){
+  return (enum action)(rand() % 3);
+}
 
 
 

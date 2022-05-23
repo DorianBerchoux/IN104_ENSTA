@@ -2,21 +2,22 @@
 #include<stdlib.h>
 
 #include"qlearning.h"
+#include "lotka_volterra.h"
 
 
 
 //On crée la matrice Q
 float** makeQ (){
 
-	float** Q = malloc((rows)*(cols)*sizeof(float*));
+	float** Q = malloc((N/dt)*sizeof(float*));
 	
 	if (Q==NULL){
 		printf("erreur allocation");
 		return NULL;
 	}
 
-	for(int i=0; i<(rows)*(cols); i++){
-		Q[i]=malloc(4*sizeof(float));
+	for(int i=0; i<(N/dt); i++){
+		Q[i]=malloc(3*sizeof(float));
 		if (Q[i]==NULL){
 			printf("erreur allocation");
 			return NULL;
@@ -24,7 +25,7 @@ float** makeQ (){
 
 		else{
 
-			for(int j=0; i<4; i++){
+			for(int j=0; i<3; i++){
 				Q[i][j]=0;
 			}	
 		}
@@ -34,7 +35,7 @@ float** makeQ (){
 }
 
 void freeQ (float** Q){
-	for(int i=0;i<(rows*cols);i++){
+	for(int i=0;i<(N/dt);i++){
 		free(Q[i]);
 	}
 	free(Q);
@@ -60,55 +61,20 @@ void freeQ (float** Q){
 
 
 float recompense(action a){
-
-	
-
-	if(a==up){
-		if (maze[state_row-1][state_col] == '+'){
-			return -0.1;
-		}
-
-		else if ((state_row-1==goal_row) && (state_col==goal_col)){
-			return 1;	
-		}
-		else return -0.01;
+	float r0predator=9.0;
+	float r0prey=3.0;
+	//Ce sont des récompenses caractéristiques 
+	if (a==0){
+		//On choisit de pecher une proie
+		//La récompense dépend du nombre de proies par rapport au début
+		//Et dépend de la proportion de proies
+		return (state_prey/(state_prey+state_predator) + 1)*r0prey - (prey0/state_prey -1)*r0prey;
+	}else if (a==1){
+		//On choisit de pecher un predateur
+		return (state_predator/(state_prey+state_predator) + 1)*r0predator - (predator0/state_predator -1)*r0predator;
+	}else{
+		return -0.1;
 	}
-
-	else if(a==down){
-		if(maze[state_row+1][state_col] == '+'){
-			return -0.1;
-		}
-
-		else if((state_row+1==goal_row) && (state_col==goal_col)){
-			return 1;
-		}
-		else return -0.01;
-	}
-
-	else if(a==right){
-		if(maze[state_row][state_col+1] == '+'){
-			return -0.1;
-		}
-
-		else if((state_row==goal_row) && (state_col+1==goal_col)){
-			return 1;
-		}
-		else return -0.01;
-	}
-
-	else if(a==left){
-		if(maze[state_row][state_col-1] == '+'){
-			return -0.1;
-		}
-
-		else if((state_row==goal_row) && (state_col-1==goal_col)){
-			return 1;
-		}
-		else return -0.01;
-	}
-
-return 0;
-
 }
 
 
