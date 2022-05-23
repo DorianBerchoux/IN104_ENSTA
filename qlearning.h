@@ -6,7 +6,7 @@
 
 float** makeQ();
 
-
+void freeQ(float** Q);
 
 float recompense(action a );
 

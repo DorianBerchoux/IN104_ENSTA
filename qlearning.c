@@ -33,7 +33,12 @@ float** makeQ (){
 	return Q;
 }
 
-
+void freeQ (float** Q){
+	for(int i=0;i<(rows*cols);i++){
+		free(Q[i]);
+	}
+	free(Q);
+}
 
 //Modifier recompense pour qu'il utilise (i actuel, j actuel et l'action a choisie) ou alors state_row, state_col et l'action
 //FAUT COMPRENDRE COMMENT MARCHE DFS !!!!

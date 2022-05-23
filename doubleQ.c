@@ -30,10 +30,18 @@ int main(){
 	float alpha = 0.9;
 	float gamma = 0.9;
 	
+    printf("ok1\n");
+
 	int count = 0;
 	//on créé notre matrice Q
 	float** Q1 = makeQ();
+
+    printf("ok12\n");
+
     float** Q2 = makeQ();
+
+    printf("ok2\n");
+
 	//on réalise le parcours du labyrinthe 100 fois
 	for(int i=0; i<100; i++){
 		maze_make("maze.txt");
@@ -43,7 +51,7 @@ int main(){
 		init_visited();
 		while (((state_row != goal_row) || (state_col!=goal_col)) && (count<10000)){
 			//D'abord on choisit une action à faire
-			action a = Q_eps_greedy(eps,Q1+Q2);
+			action a = doubleQ_eps_greedy(eps,Q1,Q2);
 			printf("action %d\n",a);
 			//Puis on calcule la récompense associée à cette action
 			float r = recompense(a);
@@ -73,7 +81,7 @@ int main(){
 	count =0;
 	while ((state_row != goal_row) || (state_col!=goal_col) ){
 		//D'abord on choisit une action à faire
-			action a = Q_eps_greedy(eps,Q1+Q2);
+			action a = doubleQ_eps_greedy(eps,Q1,Q2);
 			//Puis on calcule la récompense associée à cette action
 			float r = recompense(a);
 			//Après on actualise notre matrice Q
@@ -100,6 +108,8 @@ int main(){
     maze_render();
 
 	
+    freeQ(Q1);
+    freeQ(Q2);
 }
 	
 
