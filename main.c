@@ -99,6 +99,7 @@ int main(){
     add_crumbs();
     maze_render();
 
+	freeQ(Q);
 	
 }
 	

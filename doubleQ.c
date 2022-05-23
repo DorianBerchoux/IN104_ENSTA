@@ -36,11 +36,40 @@ int main(){
 	int count = 0;
 	//on créé notre matrice Q
 	
-    doublemakeQ();
+    //doublemakeQ();
+
+	 Q1 = malloc(rows*cols*sizeof(float*));
+	 Q2 = malloc(rows*cols*sizeof(float*));
+
+	if((Q1==NULL)||(Q2==NULL)){
+		printf("erreur alloc");
+	}
+
+	for(int i=0; i<rows*cols;i++){
+		Q1[i]=malloc(4*sizeof(float));
+		Q2[i]=malloc(4*sizeof(float));
+		if((Q1[i]=NULL) || (Q2[i]=NULL)){
+			printf("erreur alloc 2");
+		}
+	}
 
     printf("ok2\n");
 
-	doubleQ_init();
+	//doubleQ_init(); 
+
+	printf("ok\n");
+	Q1[0][0]=0;
+	printf("ok3");
+    for (int i=0;i<rows*cols;i++){
+        for (int j=0;j<4;j++){
+			printf("ok11\n");
+            Q1[i][j]=0;
+			printf("ok1\n");
+            Q2[i][j]=0;
+			printf("ok2\n");
+
+        }
+    }
 
 	printf("ok3\n");
 
