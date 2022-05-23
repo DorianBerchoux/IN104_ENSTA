@@ -34,11 +34,8 @@ int main(){
 
 	int count = 0;
 	//on créé notre matrice Q
-	float** Q1 = makeQ();
-
-    printf("ok12\n");
-
-    float** Q2 = makeQ();
+	
+    doublemakeQ();
 
     printf("ok2\n");
 
