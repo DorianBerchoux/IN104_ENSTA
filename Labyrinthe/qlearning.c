@@ -43,16 +43,20 @@ void freeQ (float** Q){
 //Renvoie la récompense associée à la case où emmène l'action a.
 float recompense(action a){
 
+
 	
 
 	if(a==up){
+
+		//Récompense négative si l'action nous emmène dans un mur.
 		if (maze[state_row-1][state_col] == '+'){
 			return -0.1;
 		}
-
+		//Récompense positive si l'action nous emmène à la fin du labyrinthe.
 		else if ((state_row-1==goal_row) && (state_col==goal_col)){
 			return 1;	
 		}
+		//Récompense négative par défaut, dés que l'agent arrive sur une case, pour éviter qu'il stagne.
 		else return -0.01;
 	}
 
@@ -102,6 +106,7 @@ void actualisationQ (float gamma,float alpha, float** Q,  action a,float r){
 	int new_col = state_col;
 	int new_row = state_row;
 
+	//On  crée des paramètres new_col et new_row qui correspondent à la case où nous emmène l'action a, sauf s'il s'agit d'un mur auquel cas on ne modifie pas la position.
 
 	if(a==up){
 		if (maze[state_row-1][state_col] != '+'){
