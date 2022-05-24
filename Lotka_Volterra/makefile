@@ -1,8 +1,8 @@
-prog: doubleQ.o functions.o mazeEnv.o qlearning.o choose_action.o dfs.o
-	gcc -o prog doubleQ.o functions.o mazeEnv.o qlearning.o choose_action.o dfs.o -lm
+prog: doubleQ.o functions.o mazeEnv.o qlearning.o choose_action.o dfs.o 
+	gcc -o prog doubleQ.o functions.o mazeEnv.o qlearning.o choose_action.o dfs.o  -lm
 
-doubleQ.o: doubleQ.c functions.h mazeEnv.h qlearning.h choose_action.h dfs.h
-	gcc -c -Wall -Werror -Wfatal-errors doubleQ.c functions.h mazeEnv.h qlearning.h choose_action.h dfs.h -lm
+doubleQ.o: doubleQ.c functions.h mazeEnv.h qlearning.h choose_action.h dfs.h 
+	gcc -c -Wall -Werror -Wfatal-errors doubleQ.c functions.h mazeEnv.h qlearning.h choose_action.h dfs.h  -lm
 
 functions.o : functions.c functions.h
 	gcc -c -Wall -Werror -Wfatal-errors functions.c -lm
@@ -19,5 +19,7 @@ choose_action.o : choose_action.c choose_action.h
 dfs.o : dfs.c dfs.h mazeEnv.h
 	gcc -c -Wall -Werror -Wfatal-errors dfs.c dfs.h mazeEnv.h -lm
 
+
+
 clean :
-	rm -f doubleQ.o functions.o mazeEnv.o qlearning.o choose_action.o
+	rm -f doubleQ.o functions.o mazeEnv.o qlearning.o choose_action.o dfs.o 
