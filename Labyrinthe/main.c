@@ -14,9 +14,6 @@
 #include "dfs.h"
 
 
-
-//Rappel : eps = 0.4 , alpha =0.9, gamma=0.9
-
 /*
 loop for each episode : boucle de genre 400 itérations = un épisode
 et on met plusieurs épisodes
@@ -24,6 +21,8 @@ et on met plusieurs épisodes
 ou épisode qui s'arrète quand il arrive à la fonction
 et grande boucle s'arrète au bout de par exemple 4000 itérations.
 */
+
+//Main qui contient les 3 algorithmes Q-learning, sarsa et doubleQ. On modifie la valeur d'une variable "algo" selon l'algorithme que l'on veut éxécuter.
 
 int main(){
 	srand(time(0)); 
@@ -43,23 +42,21 @@ int main(){
 	
 	int count = 0;
 	
-
-
+	//Algorithme Q-learning:
 	if(algo==1){
 
 		//création de la matrice Q
 		float** Q = makeQ();
 
-		//on réalise le parcours du labyrinthe un certain nombre de fois
+		//on réalise le parcours du labyrinthe un certain nombre de fois.
 		for(int i=0; i<100; i++){
 			maze_make("maze.txt");
 			maze_reset(); //on part de (start_row,start_col)
-			//on va parcourir le labyrinthe, avec un nombre d'actions limité à 1000
+			//on initialise à 0 un compteur d'itérations avant de commencer à parcourir un labyrinthe.
 			count =0;
 			init_visited();
 
-		
-
+			//On parcourir le labyrinthe tant que l'on est pas arrivé au bout et tant que l'on a pas dépassé un nombre maximal d'itérations.
 			while (((state_row != goal_row) || (state_col!=goal_col)) && (count<1000)){
 				//D'abord on choisit une action à faire
 				action a = Q_eps_greedy(eps,Q);
@@ -77,19 +74,19 @@ int main(){
 			maze_render();
 		}
 
-	
-		//Après avoir fait 100 parcours de labyrinthe, on regarde le parcours que l'on fait après apprentissage.
+		//Une fois l'apprentissage terminé, on effectue un dernier parcours de labyrinthe pour voir s'il arrive au bout.
 		//Si le parcours est le plus court chemin, alors notre apprentissage fonctionne.
-		//On pourra ensuite chercher à optimiser cet apprentissage ou à en élaborer d'autres.
+
 		 //on part de (start_row,start_col)
 		maze_make("maze.txt");
 		maze_reset();
 		//on crée notre matrice visited
 		init_visited();
 
-		//On l'enlève l'aléatoire pour le parcours : il termine en 45 itérations(ie plus court chemin).
+		//On l'enlève l'aléatoire en mettant epsilon=0, afin que l'agent se base uniquement sur son apprentissage.
 		eps=0; 
 		count =0;
+		//On continue tant que l'agent n'arrive pas au bout du labyrinthe.
 		while ((state_row != goal_row) || (state_col!=goal_col) ){
 			//D'abord on choisit une action à faire
 			action a = Q_eps_greedy(eps,Q);
@@ -121,16 +118,16 @@ int main(){
 
 		freeQ(Q);
 
-
 	}
 
+	//algorithme sarsa
 	else if (algo == 2){
 
 		
 			float** Q= makeQ();
 			
 
-			//On loop sur les épisodes (=parcours du laby)
+			//On loop sur les épisodes 
 			for(int i=0;i<300;i++){
 				maze_make("maze.txt");
 				maze_reset();
@@ -169,7 +166,7 @@ int main(){
 					int s2 = state_row*cols + state_col;
 					Q[s][a] = Q[s][a]+alpha*(r + gamma*Q[s2][a2]-Q[s][a]);
 
-					// s<-s' : on l' a déjà fait avec actualisation position
+					// s<-s' : on l' a déjà fait avec l'appel à actualisation position
 					// a<-a'
 					a=a2;
 					++count;
@@ -183,7 +180,8 @@ int main(){
 
 
 
-			//Après avoir fait 100 parcours de labyrinthe, on regarde le parcours que l'on fait après apprentissage.
+			//Une fois l'apprentissage terminé, on effectue un dernier parcours de labyrinthe pour voir s'il arrive au bout.
+			
 				//on part de (start_row,start_col)
 				maze_make("maze.txt");
 				maze_reset();
@@ -202,8 +200,7 @@ int main(){
 				printf("départ %d %d actuelle %d %d goal %d %d", state_row, state_col, state_row, state_col, goal_row, goal_col);
 				
 					
-				
-
+			
 				while ((state_row != goal_row) || (state_col!=goal_col)){
 
 					
@@ -252,31 +249,25 @@ int main(){
 				maze_render();
 
 
-			
+			freeQ(Q);
 
 	}
 
+	//Algorithme double-Q
 	else {
 
-	
-			
-	
-		//on créé les deux matrice Q1 et Q2
-		
+		//on crée les deux matrice Q1 et Q2
 		doublemakeQ();
 
-		printf("ok2\n");
-
+		//On initialise chaque case des deux matrices Q1 et Q2 à 0.
 		doubleQinit(); 
 
-
-		printf("ok3\n");
-
-		//on réalise le parcours du labyrinthe 100 fois
+		//on réalise le parcours du labyrinthe un certain nombre de fois.
 		for(int i=0; i<100; i++){
 			maze_make("maze.txt");
 			maze_reset(); //on part de (start_row,start_col)
-			//on va parcourir le labyrinthe, avec un nombre d'actions limité à 1000
+
+			//on initialise à 0 un compteur d'iérations avant chaque parcours de labyrinthe.
 			count =0;
 			init_visited();
 			while (((state_row != goal_row) || (state_col!=goal_col)) && (count<10000)){
@@ -285,7 +276,7 @@ int main(){
 				printf("action %d\n",a);
 				//Puis on calcule la récompense associée à cette action
 				float r = recompense(a);
-				//Après on actualise notre matrice Q
+				//Après on actualise nos deux matrices Q1 et Q2.
 				double_actualisationQ(gamma,alpha,Q1,Q2,a,r);
 				//Pour finir on actualise notre position
 				actualisation_position(a); 
@@ -296,17 +287,14 @@ int main(){
 			maze_render();
 		}
 
+		//Une fois l'apprentissage terminé, on effectue un dernier parcours de labyrinthe pour voir s'il arrive au bout.
 		
-		//Après avoir fait 100 parcours de labyrinthe, on regarde le parcours que l'on fait après apprentissage.
-		//Si le parcours est le plus court chemin, alors notre apprentissage fonctionne.
-		//On pourra ensuite chercher à optimiser cet apprentissage ou à en élaborer d'autres.
-		//on part de (start_row,start_col)
 		maze_make("maze.txt");
 		maze_reset();
 		//on crée notre matrice visited
 		init_visited();
 
-		//On l'enlève l'aléatoire pour le parcours : il termine en 45 itérations(ie plus court chemin).
+		//On l'enlève l'aléatoire pour le parcours
 		eps=0; 
 		count =0;
 		while ((state_row != goal_row) || (state_col!=goal_col) ){
@@ -314,7 +302,7 @@ int main(){
 				action a = doubleQ_eps_greedy(eps,Q1,Q2);
 				//Puis on calcule la récompense associée à cette action
 				float r = recompense(a);
-				//Après on actualise notre matrice Q
+				//Après on actualise nos matrices Q1 et Q2.
 				double_actualisationQ(gamma,alpha,Q1,Q2,a,r);
 				//Pour finir on actualise notre position
 				actualisation_position(a);
@@ -338,7 +326,7 @@ int main(){
 		add_crumbs();
 		maze_render();
 
-		
+		//On libère la mémoire.
 		freeQ(Q1);
 		freeQ(Q2);
 

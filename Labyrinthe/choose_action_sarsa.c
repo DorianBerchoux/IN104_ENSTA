@@ -6,10 +6,11 @@
 
 #include "choose_action_sarsa.h"
 
+//Fichier contenant les fonctions permettant de choisir une action, modifiées pour faire fonctionner l'algorithme sarsa.
 
-//2eme version de la fonction imaxQ qui prend en argument la matrice T qui permet de parcourir les cases de la matrice Q dans un ordre aléatoire 
+
+//2eme version de la fonction imaxQ qui permet de parcourir les cases de la liste Q[s] dans un ordre aléatoire 
 //lors de la recherche du max, afin d'éviter de choisir toujours le premier maximum lorsque des cases ont la même valeur.
-
 int imaxQ_sarsa (int i, int j, float** Q){
 
 	srand(time(0));
@@ -44,7 +45,7 @@ int imaxQ_sarsa (int i, int j, float** Q){
     
 }
 
-//2eme version de la fonction eps_greedy qui sert pour Sarsa, qui prend en argument la matrice T pour pouvoir utiliser la fonction imaxQ_sarsa.
+//Modification de la fonction eps_greedy pour prendre en compte la nouvelle fonction imaxQ_sarsa.
 
 action Q_eps_greedy_sarsa(float eps, float** Q){
 //on choisit l'action à l'aide de la méthode eps-greedy

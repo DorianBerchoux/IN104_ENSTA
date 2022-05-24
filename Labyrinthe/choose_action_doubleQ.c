@@ -2,8 +2,9 @@
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
-
 #include "choose_action_doubleQ.h"
+
+//Fichier contenant les fonctions permettant de choisir une action, modifiées pour faire fonctionner l'algorithme doubleQ.
 
 int imaxQ_doubleQ (int i, int j, float** Q1, float** Q2){
 

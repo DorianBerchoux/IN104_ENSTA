@@ -14,6 +14,7 @@ float randdouble(){
     return res;
 }
 
+//Fonction de recherche du max dans la liste Q[s], qui servira à actualiser la valeur des cases de la matrice Q.
 int imaxQ (int i, int j, float** Q){
 
 	int indice=0;
@@ -25,13 +26,10 @@ int imaxQ (int i, int j, float** Q){
 	}
 	return indice;
 
-
-    
 }
 
-
-action Q_eps_greedy(float eps, float** Q){
 //on choisit l'action à l'aide de la méthode eps-greedy
+action Q_eps_greedy(float eps, float** Q){
 
 //on commence par choisir un nombre aléatoirement entre 0 et 1
 //si le nb est plus petit ou égal à eps, on choisit une action aléatoire
@@ -49,7 +47,7 @@ action Q_eps_greedy(float eps, float** Q){
 
 
 
-
+//Choix d'une action  à l'aide de la méthode de Boltzmann.
 action Q_boltzmann(float** Q){
     float sum=0.0;
     int row=state_row*(cols)+state_col;//on calcule la ligne correspondante à notre état s de notre matrice Q
