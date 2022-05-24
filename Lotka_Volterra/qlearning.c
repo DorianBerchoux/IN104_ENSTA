@@ -86,7 +86,7 @@ float recompense(action a){
 
 
 
-void actualisationQ (float gamma,float apprentissage, float** Q,  action a,float r){
+void actualisationQ (float facteur_actualisation,float apprentissage, float** Q,  action a,float r){
 	//calcul de l'état actuel
 	int s=(state_prey)*(predator0*10) + state_predator;
 	//on va calculer l'état prédit s' après avoir fait l'action a
@@ -102,7 +102,7 @@ void actualisationQ (float gamma,float apprentissage, float** Q,  action a,float
 	//on calcule notre état s' que l'on notera s2
 	int s2=(new_prey)*(predator0*10)+new_predator;
 	//on actualise notre matrice Q
-	Q[s][a] = Q[s][a] + apprentissage*(r +gamma*Q[s2][imaxQ(Tk,Q)] -Q[s][a]);
+	Q[s][a] = Q[s][a] + apprentissage*(r +facteur_actualisation*Q[s2][imaxQ(Tk,Q)] -Q[s][a]);
 	//après cela on actualise notre état : s -> s2
 	state_prey=new_prey;
 	state_predator=new_predator;
