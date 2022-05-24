@@ -1,34 +1,39 @@
+#ifndef LOTKA_VOLTERRA_H
+#define LOTKA_VOLTERRA_H
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
-int** make_Z(int X0,int Y0);
+float** make_Z();
 
-float* f(int Tk,int* Z);
+float* f(int Tk,float* Z,float alpha,float beta,float gamma,float delta);
 
-void RK2(int Tk,int** Z);
+void RK2(int Tk,float** Z,float alpha,float beta,float gamma,float delta);
 
 enum action{
      prey,
      predator,
-     nothing,
+     nothing
 };
+
+typedef enum action action ;
 
 action env_action_sample();
 
-void freeZ();
+
+void Z_reset(float** Z);
+void freeZ(float** Z);
 
 float state_prey;
 float state_predator;
 float Tk;
-float alpha;
-float beta;
-float delta;
-float gamma;
 
-
-int prey0;
-int predator0;
+float prey0;
+float predator0;
 int N;
 float dt;
 float h;
+
+#endif /* LOTKA_VOLTERRA_H */

@@ -1,23 +1,17 @@
-prog: doubleQ.o functions.o mazeEnv.o qlearning.o choose_action.o dfs.o
-	gcc -o prog doubleQ.o functions.o mazeEnv.o qlearning.o choose_action.o dfs.o -lm
+prog:  main.o qlearning.o choose_action.o lotka_volterra.o
+	gcc -o prog main.o qlearning.o choose_action.o lotka_volterra.o  -lm
 
-doubleQ.o: doubleQ.c functions.h mazeEnv.h qlearning.h choose_action.h dfs.h
-	gcc -c -Wall -Werror -Wfatal-errors doubleQ.c functions.h mazeEnv.h qlearning.h choose_action.h dfs.h -lm
+lotka_volterra.o : lotka_volterra.c lotka_volterra.h
+	gcc -c -Wall -Werror -Wfatal-errors lotka_volterra.c lotka_volterra.h -lm
 
-functions.o : functions.c functions.h
-	gcc -c -Wall -Werror -Wfatal-errors functions.c -lm
+choose_action.o : choose_action.c choose_action.h lotka_volterra.h
+	gcc -c -Wall -Werror -Wfatal-errors choose_action.c choose_action.h lotka_volterra.h -lm
 
-mazeEnv.o : mazeEnv.c mazeEnv.h
-	gcc -c -Wall -Werror -Wfatal-errors mazeEnv.c -lm
+qlearning.o : qlearning.c qlearning.h choose_action.h lotka_volterra.h
+	gcc -c -Wall -Werror -Wfatal-errors qlearning.c qlearning.h choose_action.h lotka_volterra.h -lm
 
-qlearning.o : qlearning.c qlearning.h
-	gcc -c -Wall -Werror -Wfatal-errors qlearning.c qlearning.h -lm
-
-choose_action.o : choose_action.c choose_action.h
-	gcc -c -Wall -Werror -Wfatal-errors choose_action.c choose_action.h -lm
-
-dfs.o : dfs.c dfs.h mazeEnv.h
-	gcc -c -Wall -Werror -Wfatal-errors dfs.c dfs.h mazeEnv.h -lm
+main.o : main.c qlearning.h choose_action.h lotka_volterra.h
+	gcc -c -Wall -Werror -Wfatal-errors main.c qlearning.h choose_action.h lotka_volterra.h -lm	
 
 clean :
-	rm -f doubleQ.o functions.o mazeEnv.o qlearning.o choose_action.o
+	rm -f qlearning.o choose_action.o lotka_volterra.o main.o
