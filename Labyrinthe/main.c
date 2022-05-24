@@ -5,7 +5,7 @@
 #include<math.h>
 
 #include "qlearning.h"
-#include "doubleQlearning.h"
+
 #include "mazeEnv.h"
 #include "functions.h"
 #include "choose_action.h"
@@ -260,6 +260,7 @@ int main(){
 
 	else {
 
+	/*	
 			
 	
 		//on créé les deux matrice Q1 et Q2
@@ -343,9 +344,14 @@ int main(){
 		freeQ(Q1);
 		freeQ(Q2);
 
+		*/
+
 	}
+
+	
 	
 }
+
 
 
 	
