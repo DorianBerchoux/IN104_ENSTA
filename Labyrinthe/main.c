@@ -14,13 +14,7 @@
 #include "dfs.h"
 
 
-/*
-loop for each episode : boucle de genre 400 itérations = un épisode
-et on met plusieurs épisodes
 
-ou épisode qui s'arrète quand il arrive à la fonction
-et grande boucle s'arrète au bout de par exemple 4000 itérations.
-*/
 
 //Main qui contient les 3 algorithmes Q-learning, sarsa et doubleQ. On modifie la valeur d'une variable "algo" selon l'algorithme que l'on veut éxécuter.
 
@@ -106,6 +100,7 @@ int main(){
 		add_crumbs();
 		printf("Le chemin qu'on a parcouru\n");
 		maze_render();
+		//On affiche le nombre d'itérations.
 		printf("nb d'itérations final %d\n", count);
 		//Maintenant on affiche le chemin le plus court
 		printf("Le chemin le plus court\n");
@@ -116,6 +111,7 @@ int main(){
     	add_crumbs();
     	maze_render();
 
+		//On libère la mémoire.
 		freeQ(Q);
 
 	}
@@ -238,6 +234,7 @@ int main(){
 				add_crumbs();
 				printf("Le chemin qu'on a parcouru\n");
 				maze_render();
+				//On affiche le nombre d'itérations.
 				printf("nb d'itérations final %d\n", count);
 				//Maintenant on affiche le chemin le plus court
 				printf("Le chemin le plus court\n");
@@ -248,7 +245,7 @@ int main(){
 				add_crumbs();
 				maze_render();
 
-
+			//On libère la mémoire.
 			freeQ(Q);
 
 	}
