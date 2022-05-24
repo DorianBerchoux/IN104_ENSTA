@@ -5,7 +5,7 @@
 #include<math.h>
 
 #include "qlearning.h"
-
+#include "doubleQlearning.h"
 #include "mazeEnv.h"
 #include "functions.h"
 #include "choose_action.h"
@@ -184,8 +184,6 @@ int main(){
 
 
 			//Après avoir fait 100 parcours de labyrinthe, on regarde le parcours que l'on fait après apprentissage.
-				//Si le parcours est le plus court chemin, alors notre apprentissage fonctionne.
-				//On pourra ensuite chercher à optimiser cet apprentissage ou à en élaborer d'autres.
 				//on part de (start_row,start_col)
 				maze_make("maze.txt");
 				maze_reset();
@@ -260,7 +258,7 @@ int main(){
 
 	else {
 
-	/*	
+	
 			
 	
 		//on créé les deux matrice Q1 et Q2
@@ -269,7 +267,7 @@ int main(){
 
 		printf("ok2\n");
 
-		doubleQ_init(); 
+		doubleQinit(); 
 
 
 		printf("ok3\n");
@@ -344,7 +342,7 @@ int main(){
 		freeQ(Q1);
 		freeQ(Q2);
 
-		*/
+		
 
 	}
 
