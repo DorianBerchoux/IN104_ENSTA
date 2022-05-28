@@ -38,17 +38,5 @@ void add_crumbs(){
      }
      maze[start_row][start_col]= 's';
 }
-/*
-int main(){
-   maze_make("maze.txt");
-   init_visited();
 
-   printf("number of actions :  %d \n", number_actions); 
-   maze_render();
-   dfs(start_row,start_col);
-   add_crumbs();
-   maze_render();
-   return 0;
-}
-*/
 
